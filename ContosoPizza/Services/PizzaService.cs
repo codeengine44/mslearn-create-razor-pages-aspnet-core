@@ -1,4 +1,4 @@
-﻿using ContosoPizza.Data;
+using ContosoPizza.Data;
 using ContosoPizza.Models;
 
 namespace ContosoPizza.Services
@@ -42,5 +42,34 @@ namespace ContosoPizza.Services
                 }
             }            
         } 
+        
+        // create a function that will compute the cost of pizza
+        public decimal ComputeCost(Pizza pizza)
+        {
+            decimal cost = 0;
+            if(pizza.Toppings != null)
+            {
+                foreach(var topping in pizza.Toppings)
+                {
+                    cost += topping.Price;
+                }
+            }
+            cost += pizza.Size.Price;
+            return cost;
+        }
+        
+        
+        //compute the number of pizzas in the inventory
+        public int ComputeInventory()
+        {
+            
+            int inventory = 0;
+            if (_context.Pizzas != null)
+            {
+                inventory = _context.Pizzas.Count();
+            }
+            return inventory;
+        }
+        
     }
 }
